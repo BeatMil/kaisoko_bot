@@ -17,7 +17,8 @@ client = discord.Client(intents=discord.Intents.default())
 
 @client.event
 async def on_ready():
-  print("We have logged in as {0.user}".format(client))
+    print("We have logged in as {0.user}".format(client))
+    connect_to_database()
 
 
 # @bot.command()
@@ -50,12 +51,12 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-  if message.author == client.user:
-    return 
+    if message.author == client.user:
+        return 
 
-  if message.content.startswith('!K hello'):
-    await message.channel.send('Eyyy ヽ(*・ω・)ﾉ')
-    await message.channel.send('Checkout Noel chan! XD \nhttps://www.youtube.com/@ShiroganeNoel')
+    if message.content.startswith('!K hello'):
+        await message.channel.send('Eyyy ヽ(*・ω・)ﾉ')
+        await message.channel.send('Checkout Noel chan! XD \nhttps://www.youtube.com/@ShiroganeNoel')
   # elif message.content.startswith('!K random pic'):
   #   image = api.get_random_image(categories=["kemonomimi"])
   #   await message.channel.send("Here is a random animu pic Nyaaa (´• ω •`)")
@@ -76,11 +77,23 @@ async def on_message(message):
   #   update_asmr_list(new_asmr_channel_name)
   # elif message.content.startswith('!K list'):
   #   await message.channel.send(get_all_asmr_list())
-  elif message.content.startswith('!K data'):
-    await message.channel.send('Connect to database!')
-    connect_to_database()
-  else:
-    await message.channel.send("Type: '!K hello' to start :)")
+    elif message.content.startswith('!K data'):
+        await message.channel.send('==Connect to database!==')
+        connect_to_database()
+    elif message.content.startswith('!K print'):
+        await message.channel.send('==Printing table!==')
+        print_from_a_table()
+    elif message.content.startswith('!K create table'):
+        await message.channel.send('==Creating table!==')
+        create_a_table()
+    elif message.content.startswith('!K list'):
+        await message.channel.send('==List all tables!==')
+        list_all_tables()
+    elif message.content.startswith('!K insert'):
+        await message.channel.send('==insert nano into tables!==')
+        insert_into_asmr(1, "nano", "jp")
+    else:
+        await message.channel.send("Type: '!K hello' to start :)")
 
 
 client.run(secrets.get("TOKEN"))

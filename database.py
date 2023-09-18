@@ -1,10 +1,12 @@
 import sqlite3
 
+sqliteConnection = None
 
 def connect_to_database():
     # Connect to database
     try:
         # Connect to DB and create a cursor
+        global sqliteConnection
         sqliteConnection = sqlite3.connect('sql.db')
         cursor = sqliteConnection.cursor()
         print('DB Init')
@@ -24,10 +26,40 @@ def connect_to_database():
     except sqlite3.Error as error:
         print('Error occurred - ', error)
      
-    # Close DB Connection irrespective of success
-    # or failure
-    finally:
-        if sqliteConnection:
-            sqliteConnection.close()
-            print('SQLite Connection closed')
 
+def disconnect_from_database():
+    if sqliteConnection:
+        sqliteConnection.close()
+        print('SQLite Connection closed')
+
+
+def create_a_table():
+    global sqliteConnection
+    sqliteConnection.execute('''
+CREATE TABLE asmr (
+	id INTEGER PRIMARY KEY,
+	name TEXT NOT NULL UNIQUE,
+	nation TEXT NOT NULL 
+);
+    ''')
+    print("==Table asmr created!==")
+
+def print_from_a_table():
+    global sqliteConnection
+    cursor = sqliteConnection.execute("SELECT * from asmr ")
+    for row in cursor:
+        print(row)
+    print("==Printed from asmr table==")
+
+
+def list_all_tables():
+    global sqliteConnection
+    cursor = sqliteConnection.execute(".tables")
+    print("==List all tables==")
+
+
+def insert_into_asmr(index, name, nation):
+    global sqliteConnection
+    cursor = sqliteConnection.execute(
+            f"INSERT INTO asmr VALUES ({index}, '{name}', '{nation}');")
+    print("==New asmrtist inserted!==")
