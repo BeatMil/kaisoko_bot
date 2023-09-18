@@ -1,11 +1,14 @@
 import os
 import discord
 from secrets import secrets 
+from database import *
 import random
 # from replit import db
 # from asmr_vtuber_list import ASMR_VTUBER_LIST
 # from anime_api.apis import NekosAPI
 # from discord.ext import commands
+
+
 
 # Initials
 client = discord.Client(intents=discord.Intents.default())
@@ -73,6 +76,9 @@ async def on_message(message):
   #   update_asmr_list(new_asmr_channel_name)
   # elif message.content.startswith('!K list'):
   #   await message.channel.send(get_all_asmr_list())
+  elif message.content.startswith('!K data'):
+    await message.channel.send('Connect to database!')
+    connect_to_database()
   else:
     await message.channel.send("Type: '!K hello' to start :)")
 
