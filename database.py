@@ -33,16 +33,17 @@ def disconnect_from_database():
         print('SQLite Connection closed')
 
 
-def create_a_table():
-    global sqliteConnection
-    sqliteConnection.execute('''
-CREATE TABLE asmr (
-	id INTEGER PRIMARY KEY,
-	name TEXT NOT NULL UNIQUE,
-	nation TEXT NOT NULL 
-);
-    ''')
-    print("==Table asmr created!==")
+# def create_a_table():
+#     global sqliteConnection
+#     sqliteConnection.execute('''
+#     CREATE TABLE asmr (
+#         id INTEGER PRIMARY KEY,
+#         name TEXT NOT NULL UNIQUE,
+#         nation TEXT NOT NULL 
+#     );
+#     ''')
+#     print("==Table asmr created!==")
+
 
 def print_from_a_table():
     global sqliteConnection
@@ -58,8 +59,8 @@ def list_all_tables():
     print("==List all tables==")
 
 
-def insert_into_asmr(index, name, nation):
+def insert_into_asmr(name, nation):
     global sqliteConnection
     cursor = sqliteConnection.execute(
-            f"INSERT INTO asmr VALUES ({index}, '{name}', '{nation}');")
+            f"INSERT INTO asmr (name, nation) VALUES ('{name}', '{nation}');")
     print("==New asmrtist inserted!==")

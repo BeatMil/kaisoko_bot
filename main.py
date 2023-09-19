@@ -83,15 +83,12 @@ async def on_message(message):
     elif message.content.startswith('!K print'):
         await message.channel.send('==Printing table!==')
         print_from_a_table()
-    elif message.content.startswith('!K create table'):
-        await message.channel.send('==Creating table!==')
-        create_a_table()
     elif message.content.startswith('!K list'):
         await message.channel.send('==List all tables!==')
         list_all_tables()
     elif message.content.startswith('!K insert'):
         await message.channel.send('==insert nano into tables!==')
-        insert_into_asmr(1, "nano", "jp")
+        insert_into_asmr("nano", "jp")
     else:
         await message.channel.send("Type: '!K hello' to start :)")
 
