@@ -28,11 +28,27 @@ async def yooyoo(interaction: discord.Interaction):
             f"Yooyoo {interaction.user.mention}", ephemeral=True)
 
 
-@client.tree.command(name="say")
-@app_commands.describe(thing_to_say = "What should I say?")
-async def say(interaction: discord.Interaction, thing_to_say: str):
-    await interaction.response.send_message(
-            f"{interaction.user.name} said: {thing_to_say}", ephemeral=True)
+@client.tree.command(name="gimme")
+@app_commands.choices(choices=[
+    app_commands.Choice(name="ENG", value="eng"),
+    app_commands.Choice(name="JAP", value="jap"),
+    app_commands.Choice(name="All", value="all"),
+    ])
+@app_commands.describe(choices = "Give random asmr vtuber")
+async def gimme(
+        interaction: discord.Interaction,
+        choices: app_commands.Choice[str]):
+    if choices.value == "eng":
+        await interaction.response.send_message(
+                f"Smuggy smol\nhttps://www.youtube.com/@fallenshadow")
+    elif choices.value == "jap":
+        await interaction.response.send_message(
+                f"Onee-chan typePu\nhttps://www.youtube.com/@YuuRi_Channel_")
+    elif choices.value == "all":
+        await interaction.response.send_message(
+                f"My secret fav one XD\nhttps://www.youtube.com/@yuchorinchan")
+    # await interaction.response.send_message(
+    #         f"{interaction.user.name} said: {thing_to_say}", ephemeral=True)
 
 
 client.run(secrets.get("TOKEN"))
