@@ -52,11 +52,26 @@ async def rockpaperscissor(
     elif (bot_choose == "rock" and player == "paper") or \
          (bot_choose == "paper" and player == "scissor") or \
          (bot_choose == "scissor" and player == "rock"):
-        text += "You win! *clap* *clap*"
+        text += "You win! 🎉🎉*clap* *clap*"
     else:
-        text += "You lose! XD"
+        text += "You lose! XD 💥💥💥"
+
+    # translate string to emoji
+    if player == "rock":
+        player = "🪨"
+    elif player == "paper":
+        player = "🧻"
+    else:
+        player = "✂️"
+
+    if bot_choose == "rock":
+        bot_choose = "🪨"
+    elif bot_choose == "paper":
+        bot_choose = "🧻"
+    else:
+        bot_choose = "✂️"
     await interaction.response.send_message(
-            f"{text}\nYou: {choices.value}\nMe: {bot_choose}")
+            f"{text}\nYou: {player}\nMe: {bot_choose}")
 
 
 @client.tree.command(name="gimme")
