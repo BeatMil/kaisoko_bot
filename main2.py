@@ -1,4 +1,5 @@
 import discord
+import random
 from discord import app_commands
 from discord.ext import commands
 from secrets import secrets 
@@ -32,10 +33,30 @@ async def yoo(ctx):
     await ctx.send("Yoo ready for some asmr? XD")
 
 
-@client.tree.command(name="yooyoo")
-async def yooyoo(interaction: discord.Interaction):
+@client.tree.command(name="rockpaperscissor")
+@app_commands.choices(choices=[
+    app_commands.Choice(name="Rock", value="rock"),
+    app_commands.Choice(name="Paper", value="paper"),
+    app_commands.Choice(name="Scissor", value="scissor"),
+    ])
+@app_commands.describe(choices = "Play rock paper scissor with me!")
+async def rockpaperscissor(
+        interaction: discord.Interaction,
+        choices: app_commands.Choice[str]
+        ):
+    bot_choose = random.choices(['rock', 'paper', 'scissor'])[0]
+    player = choices.value
+    text = ""
+    if bot_choose == player:
+        text += "Draw!\n"
+    elif (bot_choose == "rock" and player == "paper") or \
+         (bot_choose == "paper" and player == "scissor") or \
+         (bot_choose == "scissor" and player == "rock"):
+        text += "You win! *clap* *clap*"
+    else:
+        text += "You lose! XD"
     await interaction.response.send_message(
-            f"Yooyoo {interaction.user.mention}", ephemeral=True)
+            f"{text}\nYou: {choices.value}\nMe: {bot_choose}")
 
 
 @client.tree.command(name="gimme")
@@ -57,8 +78,6 @@ async def gimme(
     elif choices.value == "all":
         await interaction.response.send_message(
                 f"My secret fav one XD\nhttps://www.youtube.com/@yuchorinchan")
-    # await interaction.response.send_message(
-    #         f"{interaction.user.name} said: {thing_to_say}", ephemeral=True)
 
 
 client.run(secrets.get("TOKEN"))
