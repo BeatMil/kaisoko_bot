@@ -17,6 +17,16 @@ async def on_ready():
         print(e)
 
 
+@client.event
+async def on_message(message):
+    # don't reply to it's own message
+    if message.author == client.user:
+        return 
+
+    await message.channel.send('Eyyy ヽ(*・ω・)ﾉ')
+    await message.channel.send('Try "/" commands! ( ^▽^)ψ__')
+
+
 @client.command()
 async def yoo(ctx):
     await ctx.send("Yoo ready for some asmr? XD")
